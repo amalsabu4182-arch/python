@@ -26,6 +26,11 @@ app.secret_key = os.environ.get('SECRET_KEY', 'a-super-secret-key-for-dev')
 # Enable CORS to allow the frontend to communicate with the backend
 CORS(app, supports_credentials=True)
 
+# --- Health Check Route ---
+# This new route will confirm that the backend is running.
+@app.route('/')
+def index():
+    return jsonify({'status': 'ok', 'message': 'Python backend is running!'})
 
 # --- Database Connection Helper ---
 def get_db_connection():
@@ -298,4 +303,3 @@ if __name__ == '__main__':
     # The port is read from an environment variable for Heroku compatibility
     port = int(os.environ.get('PORT', 5001))
     app.run(host='0.0.0.0', port=port)
-
